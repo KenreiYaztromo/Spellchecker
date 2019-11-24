@@ -31,3 +31,6 @@ def check_words(words, sentence):
 words = load_words('spell.words')
 print(check_word(words, 'zygotic'))
 print(check_words(words, 'zygotic mistasdas elementary'))
+
+
+
