@@ -60,10 +60,9 @@ if __name__ == '__main__':
 
 
     files_in_folder_to_check=glob.glob('*.words')
-    
     for file in files_in_folder_to_check:
         print(spell_checker.check_document(file))
-    
+
     
     
     
