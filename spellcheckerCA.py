@@ -1,21 +1,15 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Tue Nov 26 23:24:18 2019
 
-# to begin we start with a list of words in a file called spell.words
-# we read the file and strip out the file endings
-def load_file(file_name):
-    words = open(file_name).readlines()
-    return list(map(lambda x: x.strip(), words))
+@author: raphl
+"""
 
-def check_word(words, word):
-    return word in words
+# -*- coding: utf-8 -*-
 
-def check_words(words, sentence):
-    words_to_check = sentence.split(' ')
-    for word in words_to_check:
-        if not check_word(words, word):
-            print('Word is misspelt : ' + word)
-            return False
-    return True
+
+import glob
+
 
 class SpellChecker(object):
     def __init__(self):
@@ -32,7 +26,7 @@ class SpellChecker(object):
         return word not in ['fuck', 'shit']
         
     def check_word(self, word):
-        return word.lower().strip('.,?\"') in self.words
+        return word.lower().strip('().,?\"') in self.words
     
     def check_words(self, sentence, index=0):
         failed_words = []
@@ -57,18 +51,19 @@ class SpellChecker(object):
             failed_words_in_sentences.extend(
                 self.check_words(sentence, index))
         return failed_words_in_sentences
+    
 
 if __name__ == '__main__':
-
-    words = load_file('spell.words')
-    # now check if the word zygotic is a word
-    print(check_word(words, 'zygotic'))
-    print(check_word(words, 'mistasdas'))
-    print(check_words(words, 'zygotic mistasdas elementary'))
-    
+  
     spell_checker = SpellChecker()
     spell_checker.load_words('spell.words')
-    # now check if the word zygotic is a word
-    print(spell_checker.check_word('zygotic'))
-    print(spell_checker.check_word('mistasdas'))
-    print(spell_checker.check_words('zygotic mistasdas elementary'))
+
+
+    files_in_folder_to_check=glob.glob('*.words')
+    
+    for file in files_in_folder_to_check:
+        print(spell_checker.check_document(file))
+    
+    
+    
+    
