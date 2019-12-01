@@ -9,7 +9,7 @@ class TestSpellChecker(unittest.TestCase):
     def setUp(self):
         self.spellChecker = SpellChecker()
         self.spellChecker.load_words('spell.words')
-        #self.spellChecker.check_folder('*.words')
+
 
     def test_dictionary_of_words(self):
         self.assertTrue(len(self.spellChecker.words) == 53751)
@@ -36,8 +36,8 @@ class TestSpellChecker(unittest.TestCase):
         self.assertEqual('profanity', failed_profane_words[0]['type'])    
         
         
-    #def test_check_folder(self):
-        #self.assertTrue(self.spellChecker.check_folder('*.words'))
+    def test_check_folder(self):
+        self.assertFalse(self.spellChecker.check_folder('*.words'))
         
 if __name__ == '__main__':
     unittest.main()
