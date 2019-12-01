@@ -26,7 +26,7 @@ class SpellChecker(object):
         return word not in ['fuck', 'shit']
         
     def check_word(self, word):
-        return word.lower().strip('().,?\"') in self.words
+        return word.lower().strip('().,-:?\"') in self.words
     
     def check_words(self, sentence, index=0):
         failed_words = []
@@ -52,17 +52,22 @@ class SpellChecker(object):
                 self.check_words(sentence, index))
         return failed_words_in_sentences
     
-
+    def check_folder(self,word_files):
+        word_files_in_folder=[]
+        files_in_folder_to_check=glob.glob(word_files)       
+        for file in files_in_folder_to_check:
+            print(spell_checker.check_document(file))
+            word_files_in_folder.append(1)
+        print('Number of checked files --> {}'.format(len(word_files_in_folder)))
+        
+        
 if __name__ == '__main__':
   
     spell_checker = SpellChecker()
     spell_checker.load_words('spell.words')
+    spell_checker.check_folder('*.words')
 
 
-    files_in_folder_to_check=glob.glob('*.words')
-    for file in files_in_folder_to_check:
-        print(spell_checker.check_document(file))
 
-    
     
     

@@ -9,9 +9,11 @@ class TestSpellChecker(unittest.TestCase):
     def setUp(self):
         self.spellChecker = SpellChecker()
         self.spellChecker.load_words('spell.words')
+        #self.spellChecker.check_folder('*.words')
 
     def test_dictionary_of_words(self):
         self.assertTrue(len(self.spellChecker.words) == 53751)
+
 
     def test_spell_checker(self):
         self.assertTrue(self.spellChecker.check_document('spell.words'))
@@ -23,21 +25,19 @@ class TestSpellChecker(unittest.TestCase):
         self.assertTrue(len(self.spellChecker.check_words('Our first correct sentence.')) == 0)
         self.assertEqual(2,
             len(self.spellChecker.check_document('spell.words')))
-        #failed_words = self.spellChecker.check_words('zygotic mistasdas spelllleeeing elementary')
-        #self.assertTrue(len(failed_words) == 2)
-        #self.assertTrue(failed_words[0]['word'] == 'mistasdas')
-        #self.assertTrue(failed_words[0]['line'] == 1)
-        #self.assertEquals(9, failed_words[0]['pos'])
-        #self.assertEquals('spelling', failed_words[0]['type'])
-        #self.assertTrue(failed_words[1]['word'] == 'spelllleeeing')
-        #self.assertTrue(failed_words[1]['line'] == 1)
-        #self.assertTrue(failed_words[1]['pos'] == 19)
-        #self.assertEquals('spelling', failed_words[1]['type'])
-        #self.assertEqual(2,
-            #len(self.spellChecker.check_document('spell.words')))
-        #failed_profane_words = self.spellChecker.check_document('profanity.txt')
-        #self.assertEquals(3, len(failed_profane_words))
-        #self.assertEquals('profanity', failed_profane_words[0]['type'])
+        failed_words = self.spellChecker.check_words('wrooongggg wooord to be detected')
+        self.assertTrue(len(failed_words) == 2)
+          
 
+    def test_check_profanities(self):
+        self.assertTrue(self.spellChecker.check_profanities('sht'))                   
+        failed_profane_words = self.spellChecker.check_document('profanity.txt')
+        self.assertEqual(921, len(failed_profane_words))
+        self.assertEqual('profanity', failed_profane_words[0]['type'])    
+        
+        
+    #def test_check_folder(self):
+        #self.assertTrue(self.spellChecker.check_folder('*.words'))
+        
 if __name__ == '__main__':
     unittest.main()
