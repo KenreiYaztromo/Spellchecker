@@ -18,7 +18,6 @@ class TestSpellChecker(unittest.TestCase):
     def test_spell_checker(self):
         self.assertTrue(self.spellChecker.check_document('spell.words'))
         self.assertTrue(self.spellChecker.check_document('text1.words'))
-        #self.assertTrue(self.spellChecker.check_document('text10.words'))
         self.assertFalse(self.spellChecker.check_word('mistasdas'))
         self.assertTrue(
             len(self.spellChecker.check_words('zygotic mistasdas elementary')) == 1)
