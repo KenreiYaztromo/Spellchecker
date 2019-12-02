@@ -9,7 +9,7 @@ class TestSpellChecker(unittest.TestCase):
     def setUp(self):
         self.spellChecker = SpellChecker()
         self.spellChecker.load_words('spell.words')
-
+        
 
     def test_dictionary_of_words(self):
         self.assertTrue(len(self.spellChecker.words) == 53751)
@@ -18,6 +18,7 @@ class TestSpellChecker(unittest.TestCase):
     def test_spell_checker(self):
         self.assertTrue(self.spellChecker.check_document('spell.words'))
         self.assertTrue(self.spellChecker.check_document('text1.words'))
+        #self.assertTrue(self.spellChecker.check_document('text10.words'))
         self.assertFalse(self.spellChecker.check_word('mistasdas'))
         self.assertTrue(
             len(self.spellChecker.check_words('zygotic mistasdas elementary')) == 1)
@@ -37,7 +38,8 @@ class TestSpellChecker(unittest.TestCase):
         
         
     def test_check_folder(self):
-        self.assertFalse(self.spellChecker.check_folder('*.words'))
+        word_files_in_folder=self.spellChecker.check_folder('*.words')
+        self.assertEqual(3,len(word_files_in_folder))
         
 if __name__ == '__main__':
     unittest.main()

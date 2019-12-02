@@ -52,15 +52,17 @@ class SpellChecker(object):
                 self.check_words(sentence, index))
         return failed_words_in_sentences
     
-    def check_folder(self,folder):
-        word_files_in_folder=[]
-        files_to_check=glob.glob(folder)
+    def check_folder(self,file_type):
+        word_files_in_folder = []
+        files_to_check=glob.glob(file_type)
         for file in files_to_check:
             print(self.check_document(file))
-            word_files_in_folder.append(1)
+            word_files_in_folder.append(file)    
         print('Number of checked files --> {}'.format(len(word_files_in_folder)))
+        print('Files that have been checked: {}'.format(word_files_in_folder))
+        return word_files_in_folder
     
-        
+    
 if __name__ == '__main__':
   
     spell_checker = SpellChecker()
